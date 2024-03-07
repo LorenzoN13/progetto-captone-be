@@ -25,7 +25,7 @@ public class UtenteService {
 
     public Utente findByUsername(String username) throws NotFoundException {
         Optional<Utente> optionalUser = utenteRepository.findByUsername(username);
-        if(optionalUser.isEmpty())throw new NotFoundException("Utente not found");
+        if(optionalUser.isEmpty())throw new NotFoundException("Utente non trovato");
         return optionalUser.get();
     }
 
@@ -34,7 +34,7 @@ public class UtenteService {
     }
 
     public Utente getUserById(int id) throws NotFoundException {
-        return utenteRepository.findById(id).orElseThrow(()-> new NotFoundException("Utente with id= " + id + " was not found"));
+        return utenteRepository.findById(id).orElseThrow(()-> new NotFoundException("Utente con id= " + id + " non trovato"));
     }
     public Utente saveUtente(RegisterRequest registerRequest) {
         Utente utente = new Utente();
@@ -68,9 +68,9 @@ public class UtenteService {
         return utenteRepository.save(utente);
     }
 
-    public void updateUserToAdmin(int id) throws NotFoundException, AlreadyAdminException {
+    public void updateUtenteToAdmin(int id) throws NotFoundException, AlreadyAdminException {
         Utente utente = getUserById(id);
-        if(utente.getRuoli().contains(Ruolo.ADMIN)) throw new AlreadyAdminException("Already admin");
+        if(utente.getRuoli().contains(Ruolo.ADMIN)) throw new AlreadyAdminException("Sei già amministratore");
         utente.addRuolo(Ruolo.ADMIN);
         utenteRepository.save(utente);
     }

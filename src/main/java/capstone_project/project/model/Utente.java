@@ -58,9 +58,6 @@ public class Utente  implements UserDetails {
 
 
 
-
-
-
     @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

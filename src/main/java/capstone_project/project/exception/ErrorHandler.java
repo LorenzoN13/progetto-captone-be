@@ -26,7 +26,7 @@ public class ErrorHandler {
     } @ExceptionHandler(AlreadyAdminException.class)
     @ResponseStatus(HttpStatus.FORBIDDEN)
     public ErrorResponse alreadyAdminException(AlreadyAdminException e){
-        return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), e.getMessage());
+        return new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
     }
 
 }
