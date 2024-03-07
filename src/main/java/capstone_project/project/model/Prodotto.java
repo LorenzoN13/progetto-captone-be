@@ -2,6 +2,7 @@ package capstone_project.project.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.validator.constraints.URL;
 
 import java.util.HashSet;
 import java.util.List;
@@ -23,6 +24,7 @@ public class Prodotto {
     private int quantita;
     private String marchio;
     private String colore;
+    @URL
     private String immagineUrl;
 
     @OneToMany(mappedBy = "prodotto",cascade = CascadeType.ALL)

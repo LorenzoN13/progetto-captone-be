@@ -21,5 +21,5 @@ public class Valutazione {
     @JoinColumn(name = "id_prodotto", nullable = false)
     private Prodotto prodotto;
 
-    private double rating;
+    private double valutazione;
 }
