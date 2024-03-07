@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+#Inserendo il nome del file qui nel gitignore ti per mettera di escluderlo una volta pushato nel repository
+env.properties
