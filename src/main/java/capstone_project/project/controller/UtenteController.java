@@ -32,25 +32,25 @@ public class UtenteController {
     private Cloudinary cloudinary;
 
     @GetMapping("")
-    public ResponseEntity<DefaultResponse> getAllUsers(Pageable pageable){
+    public ResponseEntity<DefaultResponse> getAllUtenti(Pageable pageable){
         return DefaultResponse.noMessage(utenteService.getAllUsers(pageable), HttpStatus.OK);
     }
     @GetMapping("/{id}")
-    public ResponseEntity<DefaultResponse> getUserById(@PathVariable int id)throws NotFoundException {
+    public ResponseEntity<DefaultResponse> getUtenteById(@PathVariable int id)throws NotFoundException {
         return DefaultResponse.noMessage(utenteService.getUserById(id), HttpStatus.OK);
     }
     @PostMapping("")
-    public ResponseEntity<DefaultResponse> createUser(@RequestBody @Validated RegisterRequest registerRequest, BindingResult bindingResult) throws NotFoundException, BadRequestExceptionHandler {
+    public ResponseEntity<DefaultResponse> createUtente(@RequestBody @Validated RegisterRequest registerRequest, BindingResult bindingResult) throws NotFoundException, BadRequestExceptionHandler {
         if (bindingResult.hasErrors()) throw  new BadRequestExceptionHandler(bindingResult.getAllErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).toList().toString());
         return DefaultResponse.noMessage(utenteService.saveUtente(registerRequest), HttpStatus.OK);
     }
     @PutMapping("/{id}")
-    public ResponseEntity<DefaultResponse> updateUser(@PathVariable int id, @RequestBody UtenteRequest utenteRequest, BindingResult bindingResult) throws NotFoundException, BadRequestExceptionHandler {
+    public ResponseEntity<DefaultResponse> updateUtente(@PathVariable int id, @RequestBody UtenteRequest utenteRequest, BindingResult bindingResult) throws NotFoundException, BadRequestExceptionHandler {
         if (bindingResult.hasErrors()) throw new  BadRequestExceptionHandler(bindingResult.getAllErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).toList().toString());
         return DefaultResponse.noMessage(utenteService.updateUtente(id, utenteRequest), HttpStatus.OK);
     }
     @DeleteMapping("/{id}")
-    public ResponseEntity<DefaultResponse> deleteUser(@PathVariable int id)throws NotFoundException{
+    public ResponseEntity<DefaultResponse> deleteUtente(@PathVariable int id)throws NotFoundException{
         utenteService.deleteUtente(id);
         return DefaultResponse.noObject("Gli utenti con ID " + id + " sono stati eliminati", HttpStatus.OK);
     }
