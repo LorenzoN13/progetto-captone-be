@@ -3,6 +3,7 @@ package capstone_project.project.security;
 import capstone_project.project.exception.NotFoundException;
 import capstone_project.project.exception.UnAuthorizedException;
 import capstone_project.project.model.Utente;
+import capstone_project.project.service.UtenteService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,7 +22,7 @@ public class JwtFilter extends OncePerRequestFilter{
     @Autowired
     private JwtTools jwtTools;
     @Autowired
-    private UserService userService;
+    private UtenteService utenteService;
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String auth= request.getHeader("Authorization");
@@ -36,9 +37,9 @@ public class JwtFilter extends OncePerRequestFilter{
 
         String email= jwtTools.extractUsername(token);
         try {
-            Utente utente = userService.findByUsername(email);
+            Utente utente = utenteService.findByUsername(email);
             System.out.println(utente.getAuthorities());
-            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user, null,user.getAuthorities());
+            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(utente, null,utente.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
             filterChain.doFilter(request,response);
         }

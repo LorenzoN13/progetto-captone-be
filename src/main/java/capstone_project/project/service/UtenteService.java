@@ -1,8 +1,12 @@
 package capstone_project.project.service;
 
+import capstone_project.project.Enum.Ruolo;
+import capstone_project.project.exception.AlreadyAdminException;
 import capstone_project.project.exception.NotFoundException;
 import capstone_project.project.model.Utente;
 import capstone_project.project.repository.UtenteRepository;
+import capstone_project.project.request.RegisterRequest;
+import capstone_project.project.request.UtenteRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class UtenteService {
@@ -32,41 +37,41 @@ public class UtenteService {
         return utenteRepository.findById(id).orElseThrow(()-> new NotFoundException("Utente with id= " + id + " was not found"));
     }
     public Utente saveUtente(RegisterRequest registerRequest) {
-        User x = new User();
-        x.setUsername(registerRequest.getUsername());
-        x.setEmail(registerRequest.getEmail());
-        x.setPassword(encoder.encode(registerRequest.getPassword()));
-        x.setFirstName(registerRequest.getFirstName());
-        x.setLastName(registerRequest.getLastName());
-        x.setRoles(Set.of(Role.USER));
-        return userRepository.save(x);
+        Utente utente = new Utente();
+        utente.setUsername(registerRequest.getUsername());
+        utente.setEmail(registerRequest.getEmail());
+        utente.setPassword(encoder.encode(registerRequest.getPassword()));
+        utente.setNome(registerRequest.getNome());
+        utente.setCognome(registerRequest.getCognome());
+        utente.setRuoli(Set.of(Ruolo.USER));
+        return utenteRepository.save(utente);
     }
 
-    public User updateUser(long id, UserRequest userRequest) throws NotFoundException {
-        User x = getUserById(id);
-        x.setUsername(userRequest.getUsername());
-        x.setEmail(userRequest.getEmail());
-        x.setFirstName(userRequest.getFirstName());
-        x.setLastName(userRequest.getLastName());
+    public Utente updateUtente(int id, UtenteRequest utenteRequest) throws NotFoundException {
+        Utente utente = getUserById(id);
+        utente.setUsername(utenteRequest.getUsername());
+        utente.setEmail(utenteRequest.getEmail());
+        utente.setNome(utenteRequest.getNome());
+        utente.setCognome(utenteRequest.getCognome());
 
-        return userRepository.save(x);
+        return utenteRepository.save(utente);
     }
 
-    public void deleteUser(Long id) throws NotFoundException {
-        User x = getUserById(id);
-        userRepository.delete(x);
+    public void deleteUtente(int id) throws NotFoundException {
+        Utente utente = getUserById(id);
+        utenteRepository.delete(utente);
     }
 
-    public User uploadAvatar(long id, String url) throws NotFoundException{
-        User x = getUserById(id);
-        x.setAvatar(url);
-        return userRepository.save(x);
+    public Utente uploadAvatar(int id, String url) throws NotFoundException{
+        Utente utente = getUserById(id);
+        utente.setAvatar(url);
+        return utenteRepository.save(utente);
     }
 
-    public void updateUserToAdmin(Long userId) throws NotFoundException, AlreadyAdminException {
-        User user = getUserById(userId);
-        if(user.getRoles().contains(Role.ADMIN)) throw new AlreadyAdminException("Already admin");
-        user.addRole(Role.ADMIN);
-        userRepository.save(user);
+    public void updateUserToAdmin(int id) throws NotFoundException, AlreadyAdminException {
+        Utente utente = getUserById(id);
+        if(utente.getRuoli().contains(Ruolo.ADMIN)) throw new AlreadyAdminException("Already admin");
+        utente.addRuolo(Ruolo.ADMIN);
+        utenteRepository.save(utente);
     }
 }
