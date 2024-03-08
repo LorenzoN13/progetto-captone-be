@@ -26,6 +26,7 @@ public class Prodotto {
     private String colore;
     @URL
     private String immagineUrl;
+    private String categoria;
 
     @OneToMany(mappedBy = "prodotto",cascade = CascadeType.ALL)
     private List<Valutazione> valutazioni;
@@ -39,7 +40,4 @@ public class Prodotto {
 
     private int numeroDiRecensioni;
 
-    @ManyToOne
-    @JoinColumn(name = "id_caetgoria")
-    private Categoria categoria;
 }

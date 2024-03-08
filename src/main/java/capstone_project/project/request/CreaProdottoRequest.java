@@ -37,4 +37,7 @@ public class CreaProdottoRequest {
 
     @NotBlank(message = "immagine obbligatoria")
     private String immagineUrl;
+
+    @NotBlank(message = "categoria obbligatoria")
+    private String categoria;
 }
