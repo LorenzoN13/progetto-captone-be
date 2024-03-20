@@ -44,7 +44,7 @@ public class OrdineArticoloService {
         ordineArticolo.setPrezzoScontato(oar.getPrezzoScontato());
         ordineArticolo.setDimensione(oar.getDimensione());
 
-        Ordine ordine = ordineService.getOridneById(oar.getIdOrdine());
+        Ordine ordine = ordineService.getOrdineById(oar.getIdOrdine());
         if (ordine == null) {
             throw new NotFoundException("Ordine non trovato con l'ID specificato.");
         }
@@ -66,7 +66,7 @@ public class OrdineArticoloService {
         ordineArticolo.setPrezzoScontato(oar.getPrezzoScontato());
         ordineArticolo.setDimensione(oar.getDimensione());
 
-        Ordine ordine = ordineService.getOridneById(oar.getIdOrdine());
+        Ordine ordine = ordineService.getOrdineById(oar.getIdOrdine());
         if (ordine == null) {
             throw new NotFoundException("Ordine non trovato con l'ID specificato.");
         }
