@@ -1,6 +1,5 @@
 package capstone_project.project.request;
 
-import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -8,7 +7,7 @@ import lombok.Data;
 import java.time.LocalDate;
 
 @Data
-public class InformazioniPagamentorequest {
+public class InformazioniPagamentoRequest {
     @NotBlank(message = "nome del titolare obbligatorio")
     private String NomeDelTitolare;
 

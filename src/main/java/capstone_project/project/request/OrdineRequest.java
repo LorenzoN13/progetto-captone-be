@@ -45,4 +45,6 @@ public class OrdineRequest {
     private Integer idIndirizzo;
 
     private Integer idOrdineArticolo;
+
+    private Integer idDettaglioPagamento;
 }

@@ -1,10 +1,7 @@
 package capstone_project.project.service;
 
 import capstone_project.project.exception.NotFoundException;
-import capstone_project.project.model.Indirizzo;
-import capstone_project.project.model.Ordine;
-import capstone_project.project.model.OrdineArticolo;
-import capstone_project.project.model.Utente;
+import capstone_project.project.model.*;
 import capstone_project.project.repository.OrdineRepository;
 import capstone_project.project.request.IndirizzoRequest;
 import capstone_project.project.request.OrdineRequest;
@@ -27,6 +24,12 @@ public class OrdineService {
     @Autowired
     private OrdineArticoloService ordineArticoloService;
 
+    @Autowired
+    private DettagliPagamentoService dettagliPagamentoService;
+
+    @Autowired
+    private IndirizzoService indirizzoService;
+
 
     public Page<Ordine> getAllOrdini(Pageable pageable){
         return ordineRepository.findAll(pageable);
@@ -48,32 +51,68 @@ public class OrdineService {
         ordine.setUtente(utente);
         ordine.setDataConsegna(ordineRequest.getDataConsegna());
         ordine.setArticoloFinale(ordineRequest.getArticoloFinale());
-        ordine.setDettagliPagamento();
+
+        DettagliPagamento dettagliPagamento = dettagliPagamentoService.getDettagliPagamentoById(ordineRequest.getIdDettaglioPagamento());
+        if (dettagliPagamento == null) {
+            throw new NotFoundException("Dettaglio pagameto non trovato con l'ID specificato.");
+        }
+        ordine.setDettagliPagamento(dettagliPagamento);
         ordine.setSconto(ordineRequest.getSconto());
-        ordine.setIndirizzoDiSpedizione();
+
+        Indirizzo indirizzo = indirizzoService.getIndirizzoById(ordineRequest.getIdIndirizzo());
+        if (indirizzo == null) {
+            throw new NotFoundException("Indirizzo non trovato con l'ID specificato.");
+        }
+
+        ordine.setIndirizzoDiSpedizione(indirizzo);
         ordine.setPrezzoScontatoTotale(ordineRequest.getPrezzoScontatoTotale());
         ordine.setPrezzoTotale(ordineRequest.getPrezzoTotale());
 
         List<OrdineArticolo> ordineArticoli = ordineArticoloService.getOrdiniArticoloByOrdineId(ordineRequest.getIdOrdineArticolo());
-        if (ordineArticoli.isEmpty()) {
-            throw new NotFoundException("Nessun ordine articolo trovato con l'ID specificato.");
-        }
         ordine.setOrdineArticoli(ordineArticoli);
 
+        return ordineRepository.save(ordine);
+
     }
 
-    public Indirizzo updateIndirizzo(int id, IndirizzoRequest indirizzoRequest){
-        Indirizzo indirizzo = getIndirizzoById(id);
-        indirizzo.setVia(indirizzoRequest.getVia());
-        indirizzo.setCivico(indirizzoRequest.getCivico());
-        indirizzo.setCap(indirizzoRequest.getCap());
-        indirizzo.setComune(indirizzoRequest.getComune());
+    public Ordine updateOrdine(int id, OrdineRequest ordineRequest){
 
-        return indirizzoRepository.save(indirizzo);
+        Utente utente = utenteService.getUtenteById(ordineRequest.getIdUtente());
+        if (utente == null) {
+            throw new NotFoundException("Utente non trovato con l'ID specificato.");
+        }
+        Ordine ordine = getOridneById(id);
+
+        ordine.setDataOrdine(ordineRequest.getDataOrdine());
+        ordine.setStatoOrdine(ordineRequest.getStatoOrdine());
+        ordine.setUtente(utente);
+        ordine.setDataConsegna(ordineRequest.getDataConsegna());
+        ordine.setArticoloFinale(ordineRequest.getArticoloFinale());
+
+        DettagliPagamento dettagliPagamento = dettagliPagamentoService.getDettagliPagamentoById(ordineRequest.getIdDettaglioPagamento());
+        if (dettagliPagamento == null) {
+            throw new NotFoundException("Dettaglio pagameto non trovato con l'ID specificato.");
+        }
+        ordine.setDettagliPagamento(dettagliPagamento);
+        ordine.setSconto(ordineRequest.getSconto());
+
+        Indirizzo indirizzo = indirizzoService.getIndirizzoById(ordineRequest.getIdIndirizzo());
+        if (indirizzo == null) {
+            throw new NotFoundException("Indirizzo non trovato con l'ID specificato.");
+        }
+
+        ordine.setIndirizzoDiSpedizione(indirizzo);
+        ordine.setPrezzoScontatoTotale(ordineRequest.getPrezzoScontatoTotale());
+        ordine.setPrezzoTotale(ordineRequest.getPrezzoTotale());
+
+        List<OrdineArticolo> ordineArticoli = ordineArticoloService.getOrdiniArticoloByOrdineId(ordineRequest.getIdOrdineArticolo());
+        ordine.setOrdineArticoli(ordineArticoli);
+
+       return ordineRepository.save(ordine);
     }
 
-    public void deleteIndirizzo(int id) throws NotFoundException {
-        Indirizzo indirizzo = getIndirizzoById(id);
-        indirizzoRepository.delete(indirizzo);
+    public void deleteOrdine(int id) throws NotFoundException {
+        Ordine ordine = getOridneById(id);
+        ordineRepository.delete(ordine);
     }
 }

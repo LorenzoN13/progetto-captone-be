@@ -33,11 +33,11 @@ public class UtenteController {
 
     @GetMapping("")
     public ResponseEntity<DefaultResponse> getAllUtenti(Pageable pageable){
-        return DefaultResponse.noMessage(utenteService.getAllUsers(pageable), HttpStatus.OK);
+        return DefaultResponse.noMessage(utenteService.getAllUtente(pageable), HttpStatus.OK);
     }
     @GetMapping("/{id}")
     public ResponseEntity<DefaultResponse> getUtenteById(@PathVariable int id)throws NotFoundException {
-        return DefaultResponse.noMessage(utenteService.getUserById(id), HttpStatus.OK);
+        return DefaultResponse.noMessage(utenteService.getUtenteById(id), HttpStatus.OK);
     }
     @PostMapping("")
     public ResponseEntity<DefaultResponse> createUtente(@RequestBody @Validated RegisterRequest registerRequest, BindingResult bindingResult) throws NotFoundException, BadRequestExceptionHandler {
