@@ -13,9 +13,12 @@ import java.time.LocalDate;
 public class InformazioniPagamento {
 
     private String NomeDelTitolare;
+
     @Column(name = "numero_carta", unique = true)
     private String numeroCarta;
+
     private LocalDate dataDiScadenza;
+
     private String cvv;
 
 }

@@ -5,6 +5,7 @@ import lombok.Data;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -27,20 +28,20 @@ public class Ordine {
 
     private int PrezzoScontatoTotale;
 
-    private int scontato;
+    private int sconto;
 
     private String statoOrdine;
 
     private int articoloFinale;
 
     @Embedded
-    private DettagliPagamento dettagliPagamento = new DettagliPagamento();
+    private DettagliPagamento dettagliPagamento;
 
     @OneToOne
     private Indirizzo indirizzoDiSpedizione;
 
     @OneToMany(mappedBy = "ordine", cascade = CascadeType.ALL)
-    private List<OrdineArticolo> ordineArticoli;
+    private List<OrdineArticolo> ordineArticoli = new ArrayList<>();
 
 
 }

@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
-public class InidrizzoRequest {
+public class IndirizzoRequest {
     @NotBlank(message = "via obbligatoria")
     private String via;
     @NotBlank(message = "civico obbligatorio")
@@ -13,5 +13,7 @@ public class InidrizzoRequest {
     private String comune;
     @NotBlank(message = "cap obbligatorio")
     private String cap;
+
+    private Integer idUtente;
 
 }

@@ -12,6 +12,8 @@ public class Recensione {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    private String recensione;
+
     @ManyToOne
     @JoinColumn(name = "id_utente")
     private Utente utente;

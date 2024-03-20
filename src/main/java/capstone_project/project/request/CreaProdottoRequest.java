@@ -1,6 +1,5 @@
 package capstone_project.project.request;
 
-import capstone_project.project.model.Dimensione;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -32,12 +31,15 @@ public class CreaProdottoRequest {
     @NotBlank(message = "colore obligatorio")
     private String colore;
 
-    @NotNull(message = "dimensione obbliagatoria")
-    private Set<Dimensione> dimensioni = new HashSet<>();
+    @NotBlank(message = "dimensione obbliagatoria")
+    private String dimensione;
 
     @NotBlank(message = "immagine obbligatoria")
     private String immagineUrl;
 
     @NotBlank(message = "categoria obbligatoria")
     private String categoria;
+
+    @NotNull(message = "quantita obbligatoria")
+    private int quantita;
 }

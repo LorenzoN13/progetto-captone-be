@@ -19,21 +19,19 @@ public class Prodotto {
 
     private String titolo;
     private String descrizione;
+    private String brand;
     private double prezzo;
     private int prezzoScontato;
     private int quantita;
     private String marchio;
     private String colore;
+    private String dimensione;
     @URL
     private String immagineUrl;
     private String categoria;
 
     @OneToMany(mappedBy = "prodotto",cascade = CascadeType.ALL)
     private List<Valutazione> valutazioni;
-
-    @Embedded
-    @ManyToMany
-    private Set<Dimensione>dimensioni = new HashSet<>();
 
     @OneToMany(mappedBy = "prodotto", cascade = CascadeType.ALL)
     private List<Recensione>recensioni;

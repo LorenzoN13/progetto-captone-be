@@ -8,4 +8,7 @@ public class ValutazioneRequest {
 
     @NotNull(message = "valutazione obbligatoria")
     private double valutazione;
+
+    private Integer idUtente;
+    private Integer idProdotto;
 }

@@ -19,7 +19,7 @@ public class Carta {
     private Utente utente;
 
     @OneToMany(mappedBy = "carta", cascade = CascadeType.ALL)
-    private Set<DettagliCarta> dettaglicarte = new HashSet<>();
+    private Set<DettagliCarta> dettaglicarta = new HashSet<>();
 
     private double prezzoTotale;
 

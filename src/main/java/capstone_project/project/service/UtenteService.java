@@ -29,11 +29,11 @@ public class UtenteService {
         return optionalUser.get();
     }
 
-    public Page<Utente> getAllUsers(Pageable pageable) {
+    public Page<Utente> getAllUtente(Pageable pageable) {
         return utenteRepository.findAll(pageable);
     }
 
-    public Utente getUserById(int id) throws NotFoundException {
+    public Utente getUtenteById(int id) throws NotFoundException {
         return utenteRepository.findById(id).orElseThrow(()-> new NotFoundException("Utente con id= " + id + " non trovato"));
     }
     public Utente saveUtente(RegisterRequest registerRequest) {
@@ -48,7 +48,7 @@ public class UtenteService {
     }
 
     public Utente updateUtente(int id, UtenteRequest utenteRequest) throws NotFoundException {
-        Utente utente = getUserById(id);
+        Utente utente = getUtenteById(id);
         utente.setUsername(utenteRequest.getUsername());
         utente.setEmail(utenteRequest.getEmail());
         utente.setNome(utenteRequest.getNome());
@@ -58,18 +58,18 @@ public class UtenteService {
     }
 
     public void deleteUtente(int id) throws NotFoundException {
-        Utente utente = getUserById(id);
+        Utente utente = getUtenteById(id);;
         utenteRepository.delete(utente);
     }
 
     public Utente uploadAvatar(int id, String url) throws NotFoundException{
-        Utente utente = getUserById(id);
+        Utente utente = getUtenteById(id);
         utente.setAvatar(url);
         return utenteRepository.save(utente);
     }
 
     public void updateUtenteToAdmin(int id) throws NotFoundException, AlreadyAdminException {
-        Utente utente = getUserById(id);
+        Utente utente = getUtenteById(id);
         if(utente.getRuoli().contains(Ruolo.ADMIN)) throw new AlreadyAdminException("Sei già amministratore");
         utente.addRuolo(Ruolo.ADMIN);
         utenteRepository.save(utente);
