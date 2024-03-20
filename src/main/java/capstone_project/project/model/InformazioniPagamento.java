@@ -1,8 +1,6 @@
 package capstone_project.project.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -11,6 +9,10 @@ import java.time.LocalDate;
 @Data
 @Table(name = "informazioniPagamento")
 public class InformazioniPagamento {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
 
     private String NomeDelTitolare;
 
