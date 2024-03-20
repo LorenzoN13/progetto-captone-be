@@ -35,7 +35,7 @@ public class OrdineService {
         return ordineRepository.findAll(pageable);
     }
 
-    public Ordine getOridneById(int id) throws NotFoundException {
+    public Ordine getOrdineById(int id) throws NotFoundException {
         return ordineRepository.findById(id).orElseThrow(()->new NotFoundException("L'ordine con il numero = " + id + " non è stata trovato"));
     }
 
@@ -81,7 +81,7 @@ public class OrdineService {
         if (utente == null) {
             throw new NotFoundException("Utente non trovato con l'ID specificato.");
         }
-        Ordine ordine = getOridneById(id);
+        Ordine ordine = getOrdineById(id);
 
         ordine.setDataOrdine(ordineRequest.getDataOrdine());
         ordine.setStatoOrdine(ordineRequest.getStatoOrdine());
@@ -112,7 +112,7 @@ public class OrdineService {
     }
 
     public void deleteOrdine(int id) throws NotFoundException {
-        Ordine ordine = getOridneById(id);
+        Ordine ordine = getOrdineById(id);
         ordineRepository.delete(ordine);
     }
 }
