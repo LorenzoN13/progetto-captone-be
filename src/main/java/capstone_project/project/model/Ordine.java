@@ -42,6 +42,4 @@ public class Ordine {
 
     @OneToMany(mappedBy = "ordine", cascade = CascadeType.ALL)
     private List<OrdineArticolo> ordineArticoli = new ArrayList<>();
-
-
 }

@@ -6,9 +6,9 @@ import lombok.Data;
 @Entity
 @Data
 @Table(name = "dettagli_pagamento")
+@Embeddable
 public class DettagliPagamento {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     private String metodoPagamento;
