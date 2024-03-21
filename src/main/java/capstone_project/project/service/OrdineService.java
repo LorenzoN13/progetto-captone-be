@@ -6,6 +6,7 @@ import capstone_project.project.repository.OrdineRepository;
 import capstone_project.project.request.IndirizzoRequest;
 import capstone_project.project.request.OrdineRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -16,19 +17,22 @@ import java.util.List;
 public class OrdineService {
 
     @Autowired
-    private OrdineRepository ordineRepository;
-
-    @Autowired
     private UtenteService utenteService;
-
-    @Autowired
-    private OrdineArticoloService ordineArticoloService;
 
     @Autowired
     private DettagliPagamentoService dettagliPagamentoService;
 
     @Autowired
     private IndirizzoService indirizzoService;
+
+    private final OrdineRepository ordineRepository;
+    private final OrdineArticoloService ordineArticoloService;
+
+    @Autowired
+    public OrdineService(OrdineRepository ordineRepository, @Lazy OrdineArticoloService ordineArticoloService) {
+        this.ordineRepository = ordineRepository;
+        this.ordineArticoloService = ordineArticoloService;
+    }
 
 
     public Page<Ordine> getAllOrdini(Pageable pageable){

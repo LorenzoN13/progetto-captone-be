@@ -3,10 +3,12 @@ package capstone_project.project.request;
 import capstone_project.project.model.DettagliCarta;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Data
+@Component
 public class CartaRequest {
 
     @NotNull(message = "prezzo tolale obbligatorio")

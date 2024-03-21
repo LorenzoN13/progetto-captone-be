@@ -5,9 +5,9 @@ import capstone_project.project.model.Ordine;
 import capstone_project.project.model.OrdineArticolo;
 import capstone_project.project.model.Prodotto;
 import capstone_project.project.repository.OrdineArticoloRepository;
-import capstone_project.project.request.CreaProdottoRequest;
 import capstone_project.project.request.OrdineArticoloRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -18,13 +18,16 @@ import java.util.List;
 public class OrdineArticoloService {
 
     @Autowired
-    private OrdineArticoloRepository ordineArticoloRepository;
+    private ProdottoService prodottoService;
+
+    private final OrdineArticoloRepository ordineArticoloRepository;
+    private final OrdineService ordineService;
 
     @Autowired
-    ProdottoService prodottoService;
-
-    @Autowired
-    private OrdineService ordineService;
+    public OrdineArticoloService(OrdineArticoloRepository ordineArticoloRepository, @Lazy OrdineService ordineService) {
+        this.ordineArticoloRepository = ordineArticoloRepository;
+        this.ordineService = ordineService;
+    }
 
     public Page<OrdineArticolo> getAllOrdiniArticoli (Pageable pageable){
         return ordineArticoloRepository.findAll(pageable);

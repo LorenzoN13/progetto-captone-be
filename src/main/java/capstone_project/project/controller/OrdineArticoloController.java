@@ -5,7 +5,9 @@ import capstone_project.project.exception.NotFoundException;
 import capstone_project.project.request.OrdineArticoloRequest;
 import capstone_project.project.responses.DefaultResponse;
 import capstone_project.project.service.OrdineArticoloService;
+import capstone_project.project.service.OrdineService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -18,8 +20,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/ordini_articoli")
 public class OrdineArticoloController {
 
+    private final OrdineArticoloService ordineArticoloService;
+
     @Autowired
-    private OrdineArticoloService ordineArticoloService;
+    public OrdineArticoloController(@Lazy OrdineArticoloService ordineArticoloService) {
+        this.ordineArticoloService = ordineArticoloService;
+    }
 
     @GetMapping("")
     public ResponseEntity<DefaultResponse> getAllOrdineArticoli(Pageable pageable){
