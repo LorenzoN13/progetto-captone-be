@@ -17,7 +17,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/ordini_articoli")
+@RequestMapping("/api/ordini_articoli")
 public class OrdineArticoloController {
 
     private final OrdineArticoloService ordineArticoloService;

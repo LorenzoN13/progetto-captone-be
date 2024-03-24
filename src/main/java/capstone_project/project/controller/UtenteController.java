@@ -23,7 +23,7 @@ import java.io.IOException;
 import java.util.HashMap;
 
 @RestController
-@RequestMapping("/utenti")
+@RequestMapping("/api/utenti")
 public class UtenteController {
     @Autowired
     private UtenteService utenteService;

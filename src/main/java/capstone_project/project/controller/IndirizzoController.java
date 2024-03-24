@@ -16,7 +16,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/indirizzi")
+@RequestMapping("/api/indirizzi")
 public class IndirizzoController {
 
     @Autowired

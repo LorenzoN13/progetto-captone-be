@@ -15,7 +15,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/dettagli_pagamenti")
+@RequestMapping("/api/dettagli_pagamenti")
 public class DettagliPagamentoController {
 
     @Autowired
