@@ -25,25 +25,35 @@ public class JwtFilter extends OncePerRequestFilter{
     private UtenteService utenteService;
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        String auth= request.getHeader("Authorization");
+        String authHeader = request.getHeader("Authorization");
 
-        if(auth==null|| !auth.startsWith("Bearer "))
-            try {throw new UnAuthorizedException("Token mancante!");}
-            catch (UnAuthorizedException e) {throw new RuntimeException(e);}
-
-        String token=auth.substring(7);
-        try {jwtTools.validateToken(token);}
-        catch (UnAuthorizedException e) {throw new RuntimeException(e);}
-
-        String email= jwtTools.extractUsername(token);
-        try {
-            Utente utente = utenteService.findByUsername(email);
-            System.out.println(utente.getAuthorities());
-            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(utente, null,utente.getAuthorities());
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-            filterChain.doFilter(request,response);
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            return;
         }
-        catch (NotFoundException e) {throw new RuntimeException(e);}
+
+        String token = authHeader.substring(7);
+
+        try {
+            jwtTools.validateToken(token);
+            String email = jwtTools.extractUsername(token);
+            Utente utente = utenteService.findByUsername(email);
+            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(utente, null, utente.getAuthorities());
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            filterChain.doFilter(request, response);
+        } catch (UnAuthorizedException e) {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.getWriter().write("{\"error\": \"Token non valido\"}");
+            return;
+        } catch (NotFoundException e) {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            response.getWriter().write("{\"error\": \"Utente non trovato\"}");
+            return;
+        } catch (Exception e) {
+            logger.error("Errore durante l'autenticazione JWT: {}");
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            return;
+        }
     }
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request){

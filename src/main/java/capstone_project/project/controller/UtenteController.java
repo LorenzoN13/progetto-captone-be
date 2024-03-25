@@ -61,7 +61,7 @@ public class UtenteController {
         return DefaultResponse.full("Avatar was uploaded successfully", utente , HttpStatus.OK);
     }
 
-    @PutMapping("/{utenteId}/promoteToAdmin")
+    @PutMapping("/{Id}/promoteToAdmin")
     public ResponseEntity<DefaultResponse> promoteUtenteToAdmin(@PathVariable int Id) throws NotFoundException, AlreadyAdminException {
         utenteService.updateUtenteToAdmin(Id);
         return DefaultResponse.noObject("Utente promosso con successo al ruolo di amministratore.", HttpStatus.OK);

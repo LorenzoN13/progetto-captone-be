@@ -24,7 +24,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api")
 public class AuthController {
     @Autowired
     private JavaMailSenderImpl mailSender;
@@ -34,7 +34,7 @@ public class AuthController {
     private PasswordEncoder encoder;
     @Autowired
     private JwtTools jwtTools;
-    @PostMapping("/register")
+    @PostMapping("/auth/register")
     public ResponseEntity<DefaultResponse> register(@RequestBody @Validated RegisterRequest registerRequest, BindingResult bindingResult) throws BadRequestExceptionHandler {
         if(bindingResult.hasErrors()){
             throw new BadRequestExceptionHandler(bindingResult.getAllErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).toList().toString());
@@ -43,7 +43,7 @@ public class AuthController {
         sendEmail(registerRequest.getEmail());
         return DefaultResponse.noMessage(utenteService.saveUtente(registerRequest), HttpStatus.CREATED);
     }
-    @PostMapping("/login")
+    @PostMapping("/auth/login")
     public ResponseEntity<LoginResponse> login(@RequestBody @Validated LoginRequest loginRequest, BindingResult bindingResult) throws BadRequestExceptionHandler, NotFoundException {
         if(bindingResult.hasErrors())
             throw new BadRequestExceptionHandler(bindingResult.getAllErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).toList().toString());
