@@ -57,6 +57,9 @@ public class JwtFilter extends OncePerRequestFilter{
     }
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request){
-        return new AntPathMatcher().match("/api/auth/**", request.getServletPath());
+        boolean isAuth = new AntPathMatcher().match("/api/auth/**", request.getServletPath());
+        boolean isProducts = new AntPathMatcher().match("/api/prodotti/**", request.getServletPath());
+
+        return isAuth || isProducts;
     }
 }
