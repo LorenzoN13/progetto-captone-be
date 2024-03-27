@@ -59,7 +59,8 @@ public class JwtFilter extends OncePerRequestFilter{
     protected boolean shouldNotFilter(HttpServletRequest request){
         boolean isAuth = new AntPathMatcher().match("/api/auth/**", request.getServletPath());
         boolean isProducts = new AntPathMatcher().match("/api/prodotti/**", request.getServletPath());
-
-        return isAuth || isProducts;
+        boolean isRecensioni = new AntPathMatcher().match("/api/recensioni/**", request.getServletPath());
+        boolean isValutazioni = new AntPathMatcher().match("/api/valutazioni/**", request.getServletPath());
+        return isAuth || isProducts || isRecensioni || isValutazioni;
     }
 }
