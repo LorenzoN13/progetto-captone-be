@@ -11,15 +11,15 @@ import java.time.LocalDateTime;
 public class LoginResponse {
     private LocalDateTime loginDate;
     private String token;
-    private Utente utente;
+    private Utente obj;
 
     public LoginResponse(String token, Utente utente) {
         this.token = token;
-        this.utente = utente;
+        this.obj = utente;
         loginDate=LocalDateTime.now();
     }
-    public static ResponseEntity<LoginResponse> login(String token, Utente utente, HttpStatus httpStatus){
-        LoginResponse loginResponse=new LoginResponse(token,utente);
+    public static ResponseEntity<LoginResponse> login(String token, Utente obj, HttpStatus httpStatus){
+        LoginResponse loginResponse=new LoginResponse(token,obj);
         return new ResponseEntity<>(loginResponse, httpStatus);
     }
 }

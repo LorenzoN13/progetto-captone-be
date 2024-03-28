@@ -31,6 +31,7 @@ public class ProdottoController {
     }
     @PostMapping("")
     public ResponseEntity<DefaultResponse> createProdotto(@RequestBody @Validated CreaProdottoRequest creaProdottoRequest, BindingResult bindingResult) throws NotFoundException, BadRequestExceptionHandler {
+        System.out.println(creaProdottoRequest);
         if (bindingResult.hasErrors()) throw  new BadRequestExceptionHandler(bindingResult.getAllErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).toList().toString());
         return DefaultResponse.noMessage(prodottoService.createProdotto(creaProdottoRequest), HttpStatus.OK);
     }
