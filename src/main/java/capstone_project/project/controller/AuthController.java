@@ -45,6 +45,7 @@ public class AuthController {
     }
     @PostMapping("/auth/login")
     public ResponseEntity<LoginResponse> login(@RequestBody @Validated LoginRequest loginRequest, BindingResult bindingResult) throws BadRequestExceptionHandler, NotFoundException {
+        System.out.println("auth login");
         if(bindingResult.hasErrors())
             throw new BadRequestExceptionHandler(bindingResult.getAllErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).toList().toString());
         Utente utente = utenteService.findByUsername(loginRequest.getUsername());

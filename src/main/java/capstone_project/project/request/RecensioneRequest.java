@@ -10,6 +10,7 @@ public class RecensioneRequest {
     private String recensione;
 
     private Integer idUtente;
+
     private Integer idProdotto;
 
 }
