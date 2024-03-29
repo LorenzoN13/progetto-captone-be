@@ -16,25 +16,28 @@ import java.util.Properties;
 @PropertySource("application.properties")
 public class AppConfig {
 
+    // Bean per l'istanza di Cloudinary utilizzando le proprietà da application.properties
     @Bean
-    public Cloudinary getCloudinary(@Value("${cloudinary.cloud_name}") String name, @Value("${cloudinary.api_key}") String key, @Value("${cloudinary.api_secret}") String secret) {
+    public Cloudinary getCloudinary(@Value("${cloudinary.cloud_name}") String name,
+                                    @Value("${cloudinary.api_key}") String key,
+                                    @Value("${cloudinary.api_secret}") String secret) {
         return new Cloudinary(ObjectUtils.asMap(
                 "cloud_name", name,
                 "api_key", key,
                 "api_secret", secret));
-
     }
 
+    // Bean per l'istanza di JavaMailSenderImpl utilizzando le proprietà da application.properties
     @Bean
-    public JavaMailSenderImpl getJavaMailSender(@Value("${gmail.mail.transport.protocol}" )String protocol,
-                                                @Value("${gmail.mail.smtp.auth}" ) String auth,
-                                                @Value("${gmail.mail.smtp.starttls.enable}" )String starttls,
-                                                @Value("${gmail.mail.debug}" )String debug,
-                                                @Value("${gmail.mail.from}" )String from,
-                                                @Value("${gmail.mail.from.password}" )String password,
-                                                @Value("${gmail.smtp.ssl.enable}" )String ssl,
-                                                @Value("${gmail.smtp.host}" )String host,
-                                                @Value("${gmail.smtp.port}" )String port){
+    public JavaMailSenderImpl getJavaMailSender(@Value("${gmail.mail.transport.protocol}") String protocol,
+                                                @Value("${gmail.mail.smtp.auth}") String auth,
+                                                @Value("${gmail.mail.smtp.starttls.enable}") String starttls,
+                                                @Value("${gmail.mail.debug}") String debug,
+                                                @Value("${gmail.mail.from}") String from,
+                                                @Value("${gmail.mail.from.password}") String password,
+                                                @Value("${gmail.smtp.ssl.enable}") String ssl,
+                                                @Value("${gmail.smtp.host}") String host,
+                                                @Value("${gmail.smtp.port}") String port) {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
         mailSender.setHost(host);
         mailSender.setPort(Integer.parseInt(port));
@@ -45,11 +48,11 @@ public class AppConfig {
         props.put("mail.smtp.auth", auth);
         props.put("mail.smtp.starttls.enable", starttls);
         props.put("mail.debug", debug);
-        props.put("smtp.ssl.enable",ssl);
+        props.put("smtp.ssl.enable", ssl);
         return mailSender;
-
     }
 
+    // Bean per l'istanza del PasswordEncoder (BCryptPasswordEncoder)
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

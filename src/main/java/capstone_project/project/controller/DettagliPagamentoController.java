@@ -21,26 +21,44 @@ public class DettagliPagamentoController {
     @Autowired
     private DettagliPagamentoService dettagliPagamentoService;
 
+    // Metodo per ottenere tutti i dettagli dei pagamenti paginati
     @GetMapping("")
-    public ResponseEntity<DefaultResponse> getAllDettagliPagamenti(Pageable pageable){
+    public ResponseEntity<DefaultResponse> getAllDettagliPagamenti(Pageable pageable) {
         return DefaultResponse.noMessage(dettagliPagamentoService.getAllDettagliPagamenti(pageable), HttpStatus.OK);
     }
+
+    // Metodo per ottenere un singolo dettaglio del pagamento tramite ID
     @GetMapping("/{id}")
-    public ResponseEntity<DefaultResponse> getDettagliPagamentoById(@PathVariable int id)throws NotFoundException {
+    public ResponseEntity<DefaultResponse> getDettagliPagamentoById(@PathVariable int id) throws NotFoundException {
         return DefaultResponse.noMessage(dettagliPagamentoService.getDettagliPagamentoById(id), HttpStatus.OK);
     }
+
+    // Metodo per creare un nuovo dettaglio del pagamento
     @PostMapping("")
     public ResponseEntity<DefaultResponse> createDettagliPagamento(@RequestBody @Validated DettagliPagamentoRequest dettagliPagamentoRequest, BindingResult bindingResult) throws NotFoundException, BadRequestExceptionHandler {
-        if (bindingResult.hasErrors()) throw  new BadRequestExceptionHandler(bindingResult.getAllErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).toList().toString());
+        // Gestione degli errori di validazione
+        if (bindingResult.hasErrors())
+            throw new BadRequestExceptionHandler(bindingResult.getAllErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).toList().toString());
+
+        // Creazione del dettaglio del pagamento e restituzione della risposta HTTP
         return DefaultResponse.noMessage(dettagliPagamentoService.createDettagliPagamento(dettagliPagamentoRequest), HttpStatus.OK);
     }
+
+    // Metodo per aggiornare un dettaglio del pagamento esistente
     @PutMapping("/{id}")
     public ResponseEntity<DefaultResponse> updateDettagliPagamento(@PathVariable int id, @RequestBody DettagliPagamentoRequest dettagliPagamentoRequest, BindingResult bindingResult) throws NotFoundException, BadRequestExceptionHandler {
-        if (bindingResult.hasErrors()) throw new  BadRequestExceptionHandler(bindingResult.getAllErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).toList().toString());
+        // Gestione degli errori di validazione
+        if (bindingResult.hasErrors())
+            throw new BadRequestExceptionHandler(bindingResult.getAllErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).toList().toString());
+
+        // Aggiornamento del dettaglio del pagamento e restituzione della risposta HTTP
         return DefaultResponse.noMessage(dettagliPagamentoService.updateDettagliPagamento(id, dettagliPagamentoRequest), HttpStatus.OK);
     }
+
+    // Metodo per eliminare un dettaglio del pagamento esistente
     @DeleteMapping("/{id}")
-    public ResponseEntity<DefaultResponse> deleteDettagliPagamento(@PathVariable int id)throws NotFoundException{
+    public ResponseEntity<DefaultResponse> deleteDettagliPagamento(@PathVariable int id) throws NotFoundException {
+        // Eliminazione del dettaglio del pagamento e restituzione della risposta HTTP
         dettagliPagamentoService.deleteDettagliPagamento(id);
         return DefaultResponse.noObject("Il dettaglio con il pagamento con ID " + id + " è stata eliminata", HttpStatus.OK);
     }

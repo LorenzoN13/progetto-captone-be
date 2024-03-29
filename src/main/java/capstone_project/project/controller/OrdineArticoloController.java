@@ -27,26 +27,44 @@ public class OrdineArticoloController {
         this.ordineArticoloService = ordineArticoloService;
     }
 
+    // Metodo per ottenere tutti gli ordini articoli paginati
     @GetMapping("")
-    public ResponseEntity<DefaultResponse> getAllOrdineArticoli(Pageable pageable){
+    public ResponseEntity<DefaultResponse> getAllOrdineArticoli(Pageable pageable) {
         return DefaultResponse.noMessage(ordineArticoloService.getAllOrdiniArticoli(pageable), HttpStatus.OK);
     }
+
+    // Metodo per ottenere un singolo ordine articolo tramite ID
     @GetMapping("/{id}")
-    public ResponseEntity<DefaultResponse> getOrdineArticoloById(@PathVariable int id)throws NotFoundException {
+    public ResponseEntity<DefaultResponse> getOrdineArticoloById(@PathVariable int id) throws NotFoundException {
         return DefaultResponse.noMessage(ordineArticoloService.getOrdineArticoloById(id), HttpStatus.OK);
     }
+
+    // Metodo per creare un nuovo ordine articolo
     @PostMapping("")
     public ResponseEntity<DefaultResponse> createOrdineArticolo(@RequestBody @Validated OrdineArticoloRequest ordineArticoloRequest, BindingResult bindingResult) throws NotFoundException, BadRequestExceptionHandler {
-        if (bindingResult.hasErrors()) throw  new BadRequestExceptionHandler(bindingResult.getAllErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).toList().toString());
+        // Gestione degli errori di validazione
+        if (bindingResult.hasErrors())
+            throw new BadRequestExceptionHandler(bindingResult.getAllErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).toList().toString());
+
+        // Creazione dell'ordine articolo e restituzione della risposta HTTP
         return DefaultResponse.noMessage(ordineArticoloService.createOrdineArticolo(ordineArticoloRequest), HttpStatus.OK);
     }
+
+    // Metodo per aggiornare un ordine articolo esistente
     @PutMapping("/{id}")
     public ResponseEntity<DefaultResponse> updateOrdineArticolo(@PathVariable int id, @RequestBody OrdineArticoloRequest ordineArticoloRequest, BindingResult bindingResult) throws NotFoundException, BadRequestExceptionHandler {
-        if (bindingResult.hasErrors()) throw new  BadRequestExceptionHandler(bindingResult.getAllErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).toList().toString());
+        // Gestione degli errori di validazione
+        if (bindingResult.hasErrors())
+            throw new BadRequestExceptionHandler(bindingResult.getAllErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).toList().toString());
+
+        // Aggiornamento dell'ordine articolo e restituzione della risposta HTTP
         return DefaultResponse.noMessage(ordineArticoloService.updateOrdineArticolo(id, ordineArticoloRequest), HttpStatus.OK);
     }
+
+    // Metodo per eliminare un ordine articolo esistente
     @DeleteMapping("/{id}")
-    public ResponseEntity<DefaultResponse> deleteOrdineArticolo(@PathVariable int id)throws NotFoundException{
+    public ResponseEntity<DefaultResponse> deleteOrdineArticolo(@PathVariable int id) throws NotFoundException {
+        // Eliminazione dell'ordine articolo e restituzione della risposta HTTP
         ordineArticoloService.deleteOrdineArticolo(id);
         return DefaultResponse.noObject("L'ordine con l'articolo con ID " + id + " è stata eliminata", HttpStatus.OK);
     }

@@ -22,26 +22,44 @@ public class IndirizzoController {
     @Autowired
     private IndirizzoService indirizzoService;
 
+    // Metodo per ottenere tutti gli indirizzi paginati
     @GetMapping("")
-    public ResponseEntity<DefaultResponse> getAllIndirizzi(Pageable pageable){
+    public ResponseEntity<DefaultResponse> getAllIndirizzi(Pageable pageable) {
         return DefaultResponse.noMessage(indirizzoService.getAllIndirizzi(pageable), HttpStatus.OK);
     }
+
+    // Metodo per ottenere un singolo indirizzo tramite ID
     @GetMapping("/{id}")
-    public ResponseEntity<DefaultResponse> getIndirizzoById(@PathVariable int id)throws NotFoundException {
+    public ResponseEntity<DefaultResponse> getIndirizzoById(@PathVariable int id) throws NotFoundException {
         return DefaultResponse.noMessage(indirizzoService.getIndirizzoById(id), HttpStatus.OK);
     }
+
+    // Metodo per creare un nuovo indirizzo
     @PostMapping("")
     public ResponseEntity<DefaultResponse> createIndirizzo(@RequestBody @Validated IndirizzoRequest indirizzoRequest, BindingResult bindingResult) throws NotFoundException, BadRequestExceptionHandler {
-        if (bindingResult.hasErrors()) throw  new BadRequestExceptionHandler(bindingResult.getAllErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).toList().toString());
+        // Gestione degli errori di validazione
+        if (bindingResult.hasErrors())
+            throw new BadRequestExceptionHandler(bindingResult.getAllErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).toList().toString());
+
+        // Creazione dell'indirizzo e restituzione della risposta HTTP
         return DefaultResponse.noMessage(indirizzoService.createIndirizzo(indirizzoRequest), HttpStatus.OK);
     }
+
+    // Metodo per aggiornare un indirizzo esistente
     @PutMapping("/{id}")
     public ResponseEntity<DefaultResponse> updateIndirizzo(@PathVariable int id, @RequestBody IndirizzoRequest indirizzoRequest, BindingResult bindingResult) throws NotFoundException, BadRequestExceptionHandler {
-        if (bindingResult.hasErrors()) throw new  BadRequestExceptionHandler(bindingResult.getAllErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).toList().toString());
+        // Gestione degli errori di validazione
+        if (bindingResult.hasErrors())
+            throw new BadRequestExceptionHandler(bindingResult.getAllErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).toList().toString());
+
+        // Aggiornamento dell'indirizzo e restituzione della risposta HTTP
         return DefaultResponse.noMessage(indirizzoService.updateIndirizzo(id, indirizzoRequest), HttpStatus.OK);
     }
+
+    // Metodo per eliminare un indirizzo esistente
     @DeleteMapping("/{id}")
-    public ResponseEntity<DefaultResponse> deleteIndirizzo(@PathVariable int id)throws NotFoundException{
+    public ResponseEntity<DefaultResponse> deleteIndirizzo(@PathVariable int id) throws NotFoundException {
+        // Eliminazione dell'indirizzo e restituzione della risposta HTTP
         indirizzoService.deleteIndirizzo(id);
         return DefaultResponse.noObject("L'indirizzo con ID " + id + " è stato eliminato", HttpStatus.OK);
     }
