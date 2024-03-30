@@ -7,8 +7,10 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+// Annotazione per indicare che questa interfaccia è un componente Repository gestito da Spring Data JPA.
 @Repository
 public interface CartaRepository extends JpaRepository<Carta, Integer>, PagingAndSortingRepository<Carta, Integer> {
 
+    // Metodo per cercare una carta per ID nel database.
     Optional<Carta> findById(int id);
 }
