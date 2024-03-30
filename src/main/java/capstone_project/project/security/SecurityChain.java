@@ -21,39 +21,50 @@ import java.util.List;
 @Configuration
 @EnableWebSecurity(debug = true)
 public class SecurityChain {
+    // Iniezione delle dipendenze
     @Autowired
     private JwtTools jwtTools;
+
     @Autowired
     private JwtFilter jwtFilter;
+
+    // Definisce una catena di filtri di sicurezza per le richieste HTTP
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+        // Disabilita la protezione CSRF
         httpSecurity.csrf(AbstractHttpConfigurer::disable);
+
+        // Configura le politiche CORS
         httpSecurity.cors(Customizer.withDefaults());
 
+        // Aggiunge il filtro JWT prima del filtro di autenticazione UsernamePasswordAuthenticationFilter
         httpSecurity.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
-        //httpSecurity.authorizeHttpRequests(request -> request.requestMatchers("/api/**").hasAuthority(Ruolo.ADMIN.name()));
+        // Configura le autorizzazioni per gli endpoint, permettendo l'accesso a tutti gli endpoint che iniziano con "/api/"
         httpSecurity.authorizeHttpRequests(request -> request.requestMatchers("/api/**").permitAll());
-        //httpSecurity.authorizeHttpRequests(request -> request.requestMatchers("/api/auth/**").permitAll());
-        //httpSecurity.authorizeHttpRequests(request -> request.requestMatchers(HttpMethod.,"/api/**").permitAll());
-        //httpSecurity.authorizeHttpRequests(request-> request.requestMatchers("/api/utenti/**").permitAll());
-        //httpSecurity.authorizeHttpRequests(request-> request.requestMatchers("/api/prodotti").hasAnyAuthority(Ruolo.ADMIN.name(), Ruolo.USER.name()));
-        //httpSecurity.authorizeHttpRequests(request -> request.requestMatchers("/**").denyAll());
 
+        // Restituisce la catena di filtri di sicurezza configurata
         return httpSecurity.build();
     }
 
+    // Configura le politiche CORS per consentire le richieste provenienti da localhost sulla porta 4200
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
+        // Crea una nuova configurazione CORS
         CorsConfiguration config = new CorsConfiguration();
 
+        // Imposta gli origini consentiti, i metodi consentiti e le intestazioni consentite
         config.setAllowedOrigins(List.of("http://localhost:4200/"));
         config.setAllowedMethods(List.of("*"));
         config.setAllowedHeaders(List.of("*"));
 
+        // Crea una fonte di configurazione CORS basata sugli URL
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", config); // Registro la configurazione CORS appena fatta, su tutti gli endpoint del mio server ("/")
 
+        // Registra la configurazione CORS per tutti gli endpoint del server ("/")
+        source.registerCorsConfiguration("/**", config);
+
+        // Restituisce la fonte di configurazione CORS configurata
         return source;
     }
 }
