@@ -7,39 +7,51 @@ import lombok.Data;
 import java.util.HashSet;
 import java.util.Set;
 
+// Annotazione per generare automaticamente metodi standard come getter, setter, equals, hashCode e toString
 @Data
 public class CreaProdottoRequest {
 
-    @NotBlank(message = "titolo obbligatorio")
+    // Titolo del prodotto
+    @NotBlank(message = "Titolo obbligatorio")
     private String titolo;
 
-    @NotBlank(message = "descrizione obbligatorio")
+    // Descrizione del prodotto
+    @NotBlank(message = "Descrizione obbligatoria")
     private String descrizione;
 
-    @NotNull(message = "prezzo obbligatorio")
+    // Prezzo del prodotto
+    @NotNull(message = "Prezzo obbligatorio")
     private int prezzo;
 
-    @NotNull(message = "prezzoScontato obbligatorio")
+    // Prezzo scontato del prodotto
+    @NotNull(message = "Prezzo scontato obbligatorio")
     private int prezzoScontato;
 
-    @NotNull(message = "percentualeSconto obbligatorio")
+    // Percentuale di sconto applicata al prezzo del prodotto
+    @NotNull(message = "Percentuale di sconto obbligatoria")
     private int percentualeSconto;
 
-    @NotBlank(message = "brand obbligatorio")
+    // Brand del prodotto
+    @NotBlank(message = "Brand obbligatorio")
     private String brand;
 
-    @NotBlank(message = "colore obligatorio")
+    // Colore del prodotto
+    @NotBlank(message = "Colore obbligatorio")
     private String colore;
 
-    @NotBlank(message = "dimensione obbliagatoria")
+    // Dimensione del prodotto
+    @NotBlank(message = "Dimensione obbligatoria")
     private String dimensione;
 
-    @NotBlank(message = "immagine obbligatoria")
+    // URL dell'immagine del prodotto
+    @NotBlank(message = "URL dell'immagine obbligatorio")
     private String immagineUrl;
 
-    @NotBlank(message = "categoria obbligatoria")
+    // Categoria del prodotto
+    @NotBlank(message = "Categoria obbligatoria")
     private String categoria;
 
-    @NotNull(message = "quantita obbligatoria")
+    // Quantità disponibile del prodotto
+    @NotNull(message = "Quantità obbligatoria")
     private int quantita;
 }

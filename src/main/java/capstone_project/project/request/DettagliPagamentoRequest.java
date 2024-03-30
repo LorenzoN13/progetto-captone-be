@@ -3,12 +3,15 @@ package capstone_project.project.request;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
+// Annotazione per generare automaticamente metodi standard come getter, setter, equals, hashCode e toString
 @Data
 public class DettagliPagamentoRequest {
 
-    @NotBlank(message = "metodo pagamento obbligatorio")
+    // Metodo di pagamento associato ai dettagli del pagamento
+    @NotBlank(message = "Metodo di pagamento obbligatorio")
     private String metodoPagamento;
 
-    @NotBlank(message = "obbligatorio obbligatorio")
+    // Stato associato ai dettagli del pagamento
+    @NotBlank(message = "Stato obbligatorio")
     private String stato;
 }

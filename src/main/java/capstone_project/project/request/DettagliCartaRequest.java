@@ -5,22 +5,30 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+// Annotazione per generare automaticamente metodi standard come getter, setter, equals, hashCode e toString
 @Data
 public class DettagliCartaRequest {
-    @NotNull(message = "non puo essere null")
+
+    // Prodotto associato ai dettagli della carta
+    @NotNull(message = "Prodotto non può essere nullo")
     private Prodotto prodotto;
 
-    @NotBlank(message = "dimnesione obbligatoria")
+    // Dimensione del prodotto nella carta
+    @NotBlank(message = "Dimensione obbligatoria")
     private String dimensione;
 
-    @NotNull(message = "quantit Obbligatoria")
+    // Quantità del prodotto nella carta
+    @NotNull(message = "Quantità obbligatoria")
     private int quantita;
 
-    @NotNull(message = "prezzo obbligatorio")
+    // Prezzo del prodotto nella carta
+    @NotNull(message = "Prezzo obbligatorio")
     private int prezzo;
 
-    @NotNull(message = "prezzo scontato")
+    // Prezzo scontato del prodotto nella carta
+    @NotNull(message = "Prezzo scontato obbligatorio")
     private int prezzoScontato;
 
+    // ID del prodotto associato ai dettagli della carta
     private Integer idProdotto;
 }

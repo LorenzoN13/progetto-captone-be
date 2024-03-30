@@ -4,12 +4,18 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+// Annotazione per generare automaticamente metodi standard come getter, setter, equals, hashCode e toString
 @Data
 public class AggiungiArticoloRequest {
-    @NotBlank(message = "dimesione obbligatoria")
+    // Dimensione dell'articolo
+    @NotBlank(message = "Dimensione obbligatoria")
     private String dimensione;
-    @NotNull(message = "prezzo obbligatorio")
+
+    // Prezzo dell'articolo
+    @NotNull(message = "Prezzo obbligatorio")
     private int prezzo;
-    @NotNull(message = "quantita obbligatoria")
+
+    // Quantità dell'articolo
+    @NotNull(message = "Quantità obbligatoria")
     private int quantita;
 }

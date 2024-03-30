@@ -6,18 +6,23 @@ import lombok.Data;
 
 import java.time.LocalDate;
 
+// Annotazione per generare automaticamente metodi standard come getter, setter, equals, hashCode e toString
 @Data
 public class InformazioniPagamentoRequest {
-    @NotBlank(message = "nome del titolare obbligatorio")
+
+    // Nome del titolare della carta di pagamento
+    @NotBlank(message = "Nome del titolare obbligatorio")
     private String NomeDelTitolare;
 
-    @NotBlank(message = "numero della carta obbligatorio")
+    // Numero della carta di pagamento
+    @NotBlank(message = "Numero della carta obbligatorio")
     private String numeroCarta;
 
-    @NotNull(message = "data della scadenza obbligatoria")
+    // Data di scadenza della carta di pagamento
+    @NotNull(message = "Data di scadenza obbligatoria")
     private LocalDate dataDiScadenza;
 
-    @NotBlank(message = "cvv obbligatorio")
+    // Codice CVV della carta di pagamento
+    @NotBlank(message = "CVV obbligatorio")
     private String cvv;
-
 }

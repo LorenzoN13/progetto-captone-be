@@ -7,26 +7,31 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+// Annotazione per generare automaticamente metodi standard come getter, setter, equals, hashCode e toString
 @Data
 @Component
 public class CartaRequest {
 
-    @NotNull(message = "prezzo tolale obbligatorio")
+    // Prezzo totale della carta
+    @NotNull(message = "Prezzo totale obbligatorio")
     private double prezzoTotale;
 
-    @NotNull(message = "articoli totali obbligatori")
+    // Numero totale di articoli nella carta
+    @NotNull(message = "Articoli totali obbligatori")
     private int articoliTotali;
 
-    @NotNull(message = "prezzo totale scontato obbligatorio")
+    // Prezzo totale scontato della carta
+    @NotNull(message = "Prezzo totale scontato obbligatorio")
     private int totalePrezzoScontato;
 
-    @NotNull(message = "sconto obbligatorio")
+    // Percentuale di sconto applicata alla carta
+    @NotNull(message = "Sconto obbligatorio")
     private int sconto;
 
-    @NotNull(message = "non può essere null")
+    // Dettagli della carta, rappresentati come una lista di richieste DettagliCartaRequest
+    @NotNull(message = "Dettagli carta non possono essere nulli")
     private List<DettagliCartaRequest> dettagliCarta;
 
-
-
+    // ID dell'utente associato alla carta
     private Integer idUtente;
 }

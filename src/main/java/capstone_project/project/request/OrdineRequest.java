@@ -10,41 +10,55 @@ import lombok.Data;
 import java.time.LocalDateTime;
 import java.util.List;
 
+// Annotazione per generare automaticamente metodi standard come getter, setter, equals, hashCode e toString
 @Data
 public class OrdineRequest {
 
-    @NotNull(message = "data ordine obbligatorio")
+    // Data dell'ordine
+    @NotNull(message = "Data ordine obbligatoria")
     private LocalDateTime dataOrdine;
 
-    @NotNull(message = "data consegna obbligatoria")
+    // Data di consegna dell'ordine
+    @NotNull(message = "Data consegna obbligatoria")
     private LocalDateTime dataConsegna;
 
-    @NotNull(message = "prezzo Totale obbligatorio")
+    // Prezzo totale dell'ordine
+    @NotNull(message = "Prezzo totale obbligatorio")
     private double prezzoTotale;
 
-    @NotNull(message = "PrezzoScontatoTotale obbligatorio")
+    // Prezzo scontato totale dell'ordine
+    @NotNull(message = "Prezzo scontato totale obbligatorio")
     private int PrezzoScontatoTotale;
 
-    @NotNull(message = "sconto obbligatorio")
+    // Sconto applicato all'ordine
+    @NotNull(message = "Sconto obbligatorio")
     private int sconto;
 
-    @NotBlank(message = "stato dell'ordine obbligatorio")
+    // Stato dell'ordine
+    @NotBlank(message = "Stato dell'ordine obbligatorio")
     private String statoOrdine;
 
-    @NotNull(message = "articoloFinale obbligatorio")
+    // Numero di articoli finali nell'ordine
+    @NotNull(message = "Articolo finale obbligatorio")
     private int articoloFinale;
 
-    @NotNull(message = "dettagli del Pagamento obbligatori")
+    // Dettagli del pagamento dell'ordine
+    @NotNull(message = "Dettagli del pagamento obbligatori")
     private DettagliPagamento dettagliPagamento;
 
-    @NotNull(message = "ordineArticoli obbligatori")
+    // Lista di articoli dell'ordine
+    @NotNull(message = "Ordine articoli obbligatori")
     private List<OrdineArticolo> ordineArticoli;
 
+    // ID dell'utente associato all'ordine
     private Integer idUtente;
 
+    // ID dell'indirizzo di spedizione associato all'ordine
     private Integer idIndirizzo;
 
+    // ID dell'articolo dell'ordine associato all'ordine
     private Integer idOrdineArticolo;
 
+    // ID del dettaglio del pagamento associato all'ordine
     private Integer idDettaglioPagamento;
 }

@@ -6,23 +6,33 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+// Annotazione per generare automaticamente metodi standard come getter, setter, equals, hashCode e toString
 @Data
 public class OrdineArticoloRequest {
-    @NotNull(message = "ordine obbligatorio")
+
+    // Ordine associato all'articolo dell'ordine
+    @NotNull(message = "Ordine obbligatorio")
     private Ordine ordine;
 
-    @NotNull(message = "prodotto obbligatorio")
+    // Prodotto associato all'articolo dell'ordine
+    @NotNull(message = "Prodotto obbligatorio")
     private Prodotto prodotto;
 
-    @NotBlank(message = "dimensione obbligatoria")
+    // Dimensione dell'articolo dell'ordine
+    @NotBlank(message = "Dimensione obbligatoria")
     private String dimensione;
 
-    @NotNull(message = "quantita obbligatoria")
+    // Quantità dell'articolo dell'ordine
+    @NotNull(message = "Quantità obbligatoria")
     private int quantita;
 
-    @NotNull(message = "prezzo scontato obbligatorio")
+    // Prezzo scontato dell'articolo dell'ordine
+    @NotNull(message = "Prezzo scontato obbligatorio")
     private int prezzoScontato;
 
+    // ID del prodotto associato all'articolo dell'ordine
     private Integer idProdotto;
+
+    // ID dell'ordine associato all'articolo dell'ordine
     private Integer idOrdine;
 }

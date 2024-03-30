@@ -4,18 +4,27 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
+// Annotazione per generare automaticamente metodi standard come getter, setter, equals, hashCode e toString
 @Data
 @Component
 public class IndirizzoRequest {
-    @NotBlank(message = "via obbligatoria")
+
+    // Nome della via
+    @NotBlank(message = "Via obbligatoria")
     private String via;
-    @NotBlank(message = "civico obbligatorio")
+
+    // Numero civico
+    @NotBlank(message = "Numero civico obbligatorio")
     private String civico;
-    @NotBlank(message = "comune obbligatorio")
+
+    // Nome del comune
+    @NotBlank(message = "Comune obbligatorio")
     private String comune;
-    @NotBlank(message = "cap obbligatorio")
+
+    // Codice di avviamento postale (CAP)
+    @NotBlank(message = "CAP obbligatorio")
     private String cap;
 
+    // ID dell'utente associato all'indirizzo
     private Integer idUtente;
-
 }
